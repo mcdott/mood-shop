@@ -11,6 +11,13 @@ h4 {
   font-size: 20px;
 }
 
+footer {
+  color: white;
+}
+
+footer ul {
+  text-decoration: none;
+}
 .page-header {
   display: flex;
   flex-direction: row;
