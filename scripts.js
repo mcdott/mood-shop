@@ -39,7 +39,7 @@ for (let i = 0; i < data.length; i += 1) {
 
 const cart = [];
 // ---------------------------------------------------------
-// Add Item and Track Qty
+// Add Item and track the qty
 
 function addItem(name, price) {
   for (let i = 0; i < cart.length; i++) {
@@ -82,16 +82,41 @@ function getQty() {
 function getTotal() {
   let total = 0;
   for (let i = 0; i < cart.length; i++) {
-    total = total + cart[i].price * cart[i].qty;
+    total += cart[i].price * cart[i].qty;
   }
-  return total;
+  return total.toFixed(2);
 }
 
+// ----------------------------------------------------------
+// Remove Item
+
+function removeItem(name, qty = 1) {
+  for (let i = 0; i < cart.length; i++) {
+    if (name === cart[i].name) {
+      cart[i].qty--;
+      if (cart[i].qty < 1) {
+        cart.splice(i, 1);
+      }
+      return;
+    }
+  }
+}
+
+//-----------------------------------------------------------
+// Tests
 addItem("happy", 5.99);
 addItem("calm", 5.99);
 addItem("energetic", 5.99);
+addItem("energetic", 5.99);
 addItem("happy", 5.99);
 addItem("happy", 5.99);
+addItem("sad", 5.99);
+addItem("happy", 5.99);
+removeItem("calm");
+removeItem("happy");
+removeItem("energetic");
+removeItem("energetic");
 showItems();
+
 console.log(cart);
 console.log(itemList);
