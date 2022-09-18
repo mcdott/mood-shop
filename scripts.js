@@ -5,6 +5,8 @@ const itemList = document.getElementById("item-list");
 const cartQty = document.getElementById("cart-qty");
 const cartTotal = document.getElementById("cart-total");
 
+const cart = [];
+
 // the length of our data determines how many times this loop goes around
 for (let i = 0; i < data.length; i += 1) {
   // create a new div element and give it a class name
@@ -37,14 +39,25 @@ for (let i = 0; i < data.length; i += 1) {
   itemsContainer.appendChild(newDiv);
 }
 
-const cart = [];
 // ---------------------------------------------------------
-// Add Item and track the qty
+// Functionality for 'Add to cart' button
+const all_items_button = Array.from(document.querySelectorAll("button"));
+
+all_items_button.forEach((elt) =>
+  elt.addEventListener("click", () => {
+    addItem(elt.getAttribute("id"), elt.getAttribute("data-price"));
+    showItems();
+  })
+);
+
+// ---------------------------------------------------------
+// Add Item to cart and track the qty
 
 function addItem(name, price) {
   for (let i = 0; i < cart.length; i++) {
     if (cart[i].name === name) {
       cart[i].qty += 1;
+      showItems();
       return;
     }
   }
@@ -62,12 +75,19 @@ function showItems() {
   for (let i = 0; i < cart.length; i += 1) {
     const { name, price, qty } = cart[i];
     // Note: '+=' will append to the string
-    itemStr += `<li> ${name} $${price} x ${qty} = ${price * qty}</li>`;
+    let itemTotal = price * qty;
+    itemStr += `<li>
+     ${name} $${price} x ${qty} = ${itemTotal.toFixed(2)} 
+     <button class="remove" data-name="${name}">Remove</button>
+     <button class="increment-qty" data-name="${name}">+</button>
+     <button class="decrement-qty" data-name="${name}">-</button>
+     </li>`;
   }
   itemList.innerHTML = itemStr;
 
   cartTotal.innerHTML = `Your total: $${getTotal()}`;
 }
+
 // ---------------------------------------------------------
 // Get Qty
 function getQty() {
@@ -90,33 +110,50 @@ function getTotal() {
 // ----------------------------------------------------------
 // Remove Item
 
-function removeItem(name, qty = 1) {
+function removeItem(name, qty = 0) {
   for (let i = 0; i < cart.length; i++) {
     if (name === cart[i].name) {
       cart[i].qty--;
-      if (cart[i].qty < 1) {
+      if (cart[i].qty < 1 || qty === 0) {
         cart.splice(i, 1);
       }
+      showItems();
       return;
     }
   }
 }
 
+// -----------------------------------------------------------
+// Handle clicks on 'remove', '+', and '-' buttons
+
+itemList.onclick = function (e) {
+  if (e.target && e.target.classList.contains("remove")) {
+    const name = e.target.dataset.name;
+    removeItem(name);
+  } else if (e.target && e.target.classList.contains("increment-qty")) {
+    const name = e.target.dataset.name;
+    addItem(name);
+  } else if (e.target && e.target.classList.contains("decrement-qty")) {
+    const name = e.target.dataset.name;
+    removeItem(name, 1);
+  }
+};
+
 //-----------------------------------------------------------
 // Tests
-addItem("happy", 5.99);
-addItem("calm", 5.99);
-addItem("energetic", 5.99);
-addItem("energetic", 5.99);
-addItem("happy", 5.99);
-addItem("happy", 5.99);
-addItem("sad", 5.99);
-addItem("happy", 5.99);
-removeItem("calm");
-removeItem("happy");
-removeItem("energetic");
-removeItem("energetic");
+// addItem("happy", 5.99);
+// addItem("calm", 5.99);
+// addItem("energetic", 5.99);
+// addItem("energetic", 5.99);
+// addItem("happy", 5.99);
+// addItem("happy", 5.99);
+// addItem("sad", 5.99);
+// addItem("happy", 5.99);
+// removeItem("calm");
+// removeItem("happy");
+// removeItem("energetic");
+// removeItem("energetic");
 showItems();
 
-console.log(cart);
-console.log(itemList);
+// console.log(cart);
+// console.log(itemList);
