@@ -81,6 +81,7 @@ function showItems() {
      <button class="remove" data-name="${name}">Remove</button>
      <button class="increment-qty" data-name="${name}">+</button>
      <button class="decrement-qty" data-name="${name}">-</button>
+     <input class="update-qty" type="number" data-name="${name}">
      </li>`;
   }
   itemList.innerHTML = itemStr;
@@ -122,6 +123,21 @@ function removeItem(name, qty = 0) {
     }
   }
 }
+// ---------------------------------------------------------
+// Update Cart with quantities from input field
+
+function updateCart(name, qty) {
+  for (let i = 0; i < cart.length; i++) {
+    if (name === cart[i].name) {
+      cart[i].qty = qty;
+      if (qty < 1) {
+        cart.splice(i, 1);
+      }
+      showItems();
+      return;
+    }
+  }
+}
 
 // -----------------------------------------------------------
 // Handle clicks on 'remove', '+', and '-' buttons
@@ -136,6 +152,16 @@ itemList.onclick = function (e) {
   } else if (e.target && e.target.classList.contains("decrement-qty")) {
     const name = e.target.dataset.name;
     removeItem(name, 1);
+  }
+};
+
+// -------------------------------------------------------
+// Handle change events on 'update qty' input field
+itemList.onchange = function (e) {
+  if (e.target && e.target.classList.contains("update-qty")) {
+    const name = e.target.dataset.name;
+    const qty = parseInt(e.target.value);
+    updateCart(name, qty);
   }
 };
 
