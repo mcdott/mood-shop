@@ -77,11 +77,15 @@ function showItems() {
     // Note: '+=' will append to the string
     let itemTotal = price * qty;
     itemStr += `<li>
-     ${name} $${price} x ${qty} = ${itemTotal.toFixed(2)} 
-     <button class="remove" data-name="${name}">Remove</button>
-     <button class="increment-qty" data-name="${name}">+</button>
-     <button class="decrement-qty" data-name="${name}">-</button>
-     <input class="update-qty" type="number" data-name="${name}">
+     <span>
+        ${name} $${price} x ${qty} = ${itemTotal.toFixed(2)} 
+     </span>
+     <span>
+        <button class="remove" data-name="${name}">Remove</button>
+        <button class="increment-qty" data-name="${name}">+</button>
+        <button class="decrement-qty" data-name="${name}">-</button>
+        <input class="update-qty" type="number" data-name="${name}">
+     </span>
      </li>`;
   }
   itemList.innerHTML = itemStr;

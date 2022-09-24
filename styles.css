@@ -3,16 +3,11 @@ body {
     "Lucida Sans", Arial, sans-serif;
   font-size: 16px;
   background-color: #1d2c55;
-  line-height: 1.5;
   margin: 0;
 }
 
 h4 {
-  font-size: 20px;
-}
-
-footer {
-  color: white;
+  font-size: 3em;
 }
 
 .page-header {
@@ -29,11 +24,14 @@ footer {
   flex-direction: row;
   justify-content: space-between;
   list-style: none;
+  font-size: 1.5em;
 }
 .page-header a {
   display: block;
   padding: 0.5em;
   text-decoration: none;
+  margin: 1em 3em 1em 3em;
+  color: white;
 }
 
 .items {
@@ -76,4 +74,57 @@ footer {
   color: white;
   padding: 0.75em;
   border-radius: 0.5em;
+}
+
+footer {
+  color: white;
+  padding: 1em;
+  width: 700px;
+  margin: auto;
+  font-size: 1.1em;
+}
+#cart-qty {
+  font-size: 1.3em;
+}
+
+#item-list > li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em;
+}
+.remove {
+  background-color: #496ed4;
+  color: white;
+  border-radius: 0.25em;
+  min-width: 2em;
+  padding: 0.25em;
+  margin: 0.25em;
+}
+.increment-qty {
+  background-color: #496ed4;
+  color: white;
+  border-radius: 0.25em;
+  min-width: 2.25em;
+  padding: 0.25em;
+  margin: 0.25em;
+}
+.decrement-qty {
+  background-color: #496ed4;
+  color: white;
+  border-radius: 0.25em;
+  min-width: 2em;
+  padding: 0.25em;
+  margin: 0.25em;
+}
+.update-qty {
+  background-color: white;
+  color: #1d2c55;
+  border-radius: 0.25em;
+  padding: 0.25em;
+  margin: 0.25em;
+}
+#cart-total {
+  font-size: 1.5em;
 }
